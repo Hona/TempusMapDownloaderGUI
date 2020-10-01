@@ -14,6 +14,7 @@ namespace TempusToMomentumMapRenamer.Utilities
 {
     public static class MapRenamerUtility
     {
+        private static HttpClient _httpClient = new HttpClient();
         private static string GetMapSourcePath(string sourceDirectory, MapData mapData)
             => Path.Join(sourceDirectory, mapData.Name + ".bsp");
     }
