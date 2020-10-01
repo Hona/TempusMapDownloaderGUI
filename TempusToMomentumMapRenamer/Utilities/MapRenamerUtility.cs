@@ -14,5 +14,7 @@ namespace TempusToMomentumMapRenamer.Utilities
 {
     public static class MapRenamerUtility
     {
+        private static string GetMapSourcePath(string sourceDirectory, MapData mapData)
+            => Path.Join(sourceDirectory, mapData.Name + ".bsp");
     }
 }
