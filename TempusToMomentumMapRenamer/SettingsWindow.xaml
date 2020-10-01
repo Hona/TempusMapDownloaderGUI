@@ -1,0 +1,35 @@
+﻿<Window x:Class="TempusToMomentumMapRenamer.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TempusToMomentumMapRenamer"
+        mc:Ignorable="d"
+        Title="TF2 -&gt; MMOD Map Renamer" Height="412" Width="717" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top"
+               HorizontalContentAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold" Margin="0,16,0,0"
+               FontSize="18" />
+        <Label Content="Map Source Path (from TF2)" HorizontalAlignment="Center" VerticalAlignment="Top"
+               HorizontalContentAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal" Margin="0,60,0,0" />
+        <TextBox x:Name="SourcePathTextBox" HorizontalAlignment="Left" Margin="43,120,0,0" Text="TextBox"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="496" Height="22" />
+        <Button x:Name="SourcePathSelectorButton" Content="Select Folder" HorizontalAlignment="Left"
+                Margin="544,120,0,0" VerticalAlignment="Top" Height="22" Width="94"
+                Click="SourcePathSelectorButton_Click" />
+        <Label Content="Map Destination Path (for Momentum Mod)" HorizontalAlignment="Center" VerticalAlignment="Top"
+               HorizontalContentAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal" Margin="0,154,0,0" />
+        <TextBox x:Name="DestinationPathTextBox" HorizontalAlignment="Left" Margin="43,184,0,0" Text="TextBox"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="496" Height="22" />
+        <Button x:Name="DestinationPathSelectorButton" Content="Select Folder" HorizontalAlignment="Left"
+                Margin="544,184,0,0" VerticalAlignment="Top" Height="22" Width="94"
+                Click="DestinationPathSelectorButton_Click" />
+        <Button x:Name="OpenMapSelectorButton" Content="Open Map Selector" HorizontalAlignment="Center"
+                Margin="0,265,0,0" VerticalAlignment="Top" Height="34" Width="137" Click="OpenMapSelectorButton_Click" />
+        <Label Content="You might need to run twice with /download/maps and /maps" HorizontalAlignment="Center"
+               VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Segoe UI" FontWeight="Light"
+               Margin="0,86,0,0" />
+        <CheckBox x:Name="DownloadMissingMapCheckbox" Content="Download missing maps from Tempus FastDL" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
