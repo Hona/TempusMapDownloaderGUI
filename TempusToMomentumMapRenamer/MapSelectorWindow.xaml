@@ -1,0 +1,67 @@
+﻿<Window x:Class="TempusToMomentumMapRenamer.MapSelectorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TempusToMomentumMapRenamer"
+        xmlns:models="clr-namespace:TempusToMomentumMapRenamer.Models"
+        mc:Ignorable="d"
+        Title="Map Selector" Height="636" Width="1016" ResizeMode="NoResize" Loaded="Window_Loaded"
+        d:DataContext="{d:DesignInstance local:MapSelectorWindow}">
+    <Grid>
+        <StackPanel>
+            <ListView Name="MapListView" ItemsSource="{Binding MapData}" Margin="0,0,0,0" Height="543">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Copy">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="models:MapData">
+                                    <CheckBox Margin="5, 0" IsChecked="{Binding ToCopy}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Class">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="models:MapData">
+                                    <TextBlock x:Name="valueText" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IntendedClass}"
+                                                     Value="{x:Static models:ClassInfo.Soldier}">
+                                            <Setter TargetName="valueText" Property="Text" Value="Soldier" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IntendedClass}"
+                                                     Value="{x:Static models:ClassInfo.Demoman}">
+                                            <Setter TargetName="valueText" Property="Text" Value="Demoman" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IntendedClass}"
+                                                     Value="{x:Static models:ClassInfo.Both}">
+                                            <Setter TargetName="valueText" Property="Text" Value="Both" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="models:MapData">
+                                    <TextBlock Margin="5, 0" Text="{Binding Name}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="CopyButton" Content="Copy Maps" Click="CopyButton_Click" DockPanel.Dock="Bottom"
+                    Height="32" />
+            <StatusBar>
+                <StatusBarItem>
+                    <TextBlock Name="CopyStatusLabel" />
+                </StatusBarItem>
+                <Separator></Separator>
+                <StatusBarItem>
+                    <TextBlock Name="LoggerLabel" />
+                </StatusBarItem>
+            </StatusBar>
+        </StackPanel>
+    </Grid>
+</Window>
