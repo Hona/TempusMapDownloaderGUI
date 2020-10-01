@@ -1,3 +1,9 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using TempusToMomentumMapRenamer.Models;
+
 namespace TempusToMomentumMapRenamer.Utilities
 {
     public static class MapDataUtility
@@ -11,5 +17,44 @@ namespace TempusToMomentumMapRenamer.Utilities
         private const string StickyJumpPrefix = "sj";
         private const string RocketJumpPrefix = "rj";
 
+        /// <summary>
+        ///     Loads map class data from Tempus Hub
+        /// </summary>
+        public static async Task<List<MapData>> GetMapDataAsync()
+        {
+            var output = new List<MapData>();
+
+            var client = new WebClient();
+            var data = await client.DownloadStringTaskAsync(MapDataUri);
+            var lines = data.Trim().Split('\n');
+
+            foreach (var line in lines)
+            {
+                var parts = line.Split(',', 2);
+                var classChar = parts[0];
+                var mapName = parts[1];
+
+                if (string.IsNullOrWhiteSpace(mapName))
+                {
+                    throw new Exception("Map name invalid for line: " + line);
+                }
+
+                var mapData = new MapData
+                {
+                    IntendedClass = classChar.ToUpper() switch
+                    {
+                        "S" => ClassInfo.Soldier,
+                        "D" => ClassInfo.Demoman,
+                        "B" => ClassInfo.Both,
+                        _ => throw new Exception("Unexpected class data for line: " + line)
+                    },
+                    Name = mapName
+                };
+
+                output.Add(mapData);
+            }
+
+            return output;
+        }
     }
 }
