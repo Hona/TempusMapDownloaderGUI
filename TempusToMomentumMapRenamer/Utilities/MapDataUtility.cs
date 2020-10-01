@@ -56,5 +56,25 @@ namespace TempusToMomentumMapRenamer.Utilities
 
             return output;
         }
+
+        /// <summary>
+        ///     Converts the jump_ name to Momentum Mod map name
+        /// </summary>
+        public static List<string> GetMomentumMapNames(this MapData mapData)
+        {
+            var nameParts = mapData.Name.Split('_', 2);
+            var nameEnding = nameParts[1];
+
+            var rocketJumpName = $"{RocketJumpPrefix}_{nameEnding}";
+            var stickyJumpName = $"{StickyJumpPrefix}_{nameEnding}";
+
+            return mapData.IntendedClass switch
+            {
+                ClassInfo.Both => new List<string> {stickyJumpName, rocketJumpName},
+                ClassInfo.Soldier => new List<string> {rocketJumpName},
+                ClassInfo.Demoman => new List<string> {stickyJumpName},
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
     }
 }
