@@ -18,6 +18,8 @@ namespace TempusToMomentumMapRenamer.Utilities
         private static string GetMapSourcePath(string sourceDirectory, MapData mapData)
             => Path.Join(sourceDirectory, mapData.Name + ".bsp");
 
+        private static SemaphoreSlim _webclientSemaphore = new SemaphoreSlim(5, 5);
+
         private static IEnumerable<string> GetMapDestinationPaths(string destinationDirectory, MapData mapData)
         {
             var mapNames = mapData.GetMomentumMapNames();
