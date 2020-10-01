@@ -73,5 +73,21 @@ namespace TempusToMomentumMapRenamer.Utilities
 
             return mapData.Name;
         }
+
+        public static async Task RenameMapsAsync(List<MapData> selectedMaps, string sourceDirectory,
+            string destinationDirectory, bool downloadMissingMaps, Action<string> mapDoneAction, Action<string> log)
+        {
+            log("Starting...");
+            var copyTasks = selectedMaps
+                .Select(x => Task.Run(() => RenameMap(x, sourceDirectory, destinationDirectory, downloadMissingMaps, log))).ToList();
+
+            while (copyTasks.Any())
+            {
+                var finishedTask = await Task.WhenAny(copyTasks);
+                copyTasks.Remove(finishedTask);
+
+                mapDoneAction(finishedTask.Result);
+            }
+        }
     }
 }
