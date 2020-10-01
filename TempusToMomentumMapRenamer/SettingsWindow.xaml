@@ -25,11 +25,12 @@
                 Margin="544,184,0,0" VerticalAlignment="Top" Height="22" Width="94"
                 Click="DestinationPathSelectorButton_Click" />
         <Button x:Name="OpenMapSelectorButton" Content="Open Map Selector" HorizontalAlignment="Center"
-                Margin="0,265,0,0" VerticalAlignment="Top" Height="34" Width="137" Click="OpenMapSelectorButton_Click" />
+                Margin="0,296,0,0" VerticalAlignment="Top" Height="34" Width="137" Click="OpenMapSelectorButton_Click" />
         <Label Content="You might need to run twice with /download/maps and /maps" HorizontalAlignment="Center"
                VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Segoe UI" FontWeight="Light"
                Margin="0,86,0,0" />
-        <CheckBox x:Name="DownloadMissingMapCheckbox" Content="Download missing maps from Tempus FastDL" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="DownloadMissingMapCheckbox" IsChecked="True" Content="Download missing maps from Tempus FastDL" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CopyToMomentumModCheckbox" Content="Copy and rename maps to Momentum Mod folder" HorizontalAlignment="Center" Margin="0,266,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -107,7 +107,7 @@ namespace TempusToMomentumMapRenamer
                 return;
             }
 
-            var mapSelectorWindow = new MapSelectorWindow(SourcePathTextBox.Text, DestinationPathTextBox.Text, DownloadMissingMapCheckbox.IsChecked ?? false);
+            var mapSelectorWindow = new MapSelectorWindow(SourcePathTextBox.Text, DestinationPathTextBox.Text, DownloadMissingMapCheckbox.IsChecked ?? false, CopyToMomentumModCheckbox.IsChecked ?? false);
             mapSelectorWindow.Show();
             Close();
         }

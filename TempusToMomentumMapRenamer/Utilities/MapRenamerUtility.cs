@@ -30,7 +30,7 @@ namespace TempusToMomentumMapRenamer.Utilities
             }
         }
 
-        private static string RenameMap(MapData mapData, string sourceDirectory, string destinationDirectory, bool downloadMissingMap, Action<string> log)
+        private static string RenameMap(MapData mapData, string sourceDirectory, string destinationDirectory, bool downloadMissingMap, bool copyToMomentumMod, Action<string> log)
         {
             var mapPath = GetMapSourcePath(sourceDirectory, mapData);
             var destinationPaths = GetMapDestinationPaths(destinationDirectory, mapData).ToList();
@@ -42,7 +42,7 @@ namespace TempusToMomentumMapRenamer.Utilities
                     return mapData.Name + " doesn't exist in source";
                 }
 
-                if (destinationPaths.TrueForAll(File.Exists))
+                if (copyToMomentumMod && destinationPaths.TrueForAll(File.Exists))
                 {
                     return mapData.Name + " already exists in Momentum Mod files";
                 }
@@ -61,6 +61,10 @@ namespace TempusToMomentumMapRenamer.Utilities
                 // File is decompressed and saved to source dir, safe to continue
             }
 
+            if (!copyToMomentumMod)
+            {
+                return mapData.Name;
+            }
 
             foreach (var destinationPath in destinationPaths)
             {
@@ -73,15 +77,16 @@ namespace TempusToMomentumMapRenamer.Utilities
                 File.Copy(mapPath, destinationPath);
             }
 
+
             return mapData.Name;
         }
 
         public static async Task RenameMapsAsync(List<MapData> selectedMaps, string sourceDirectory,
-            string destinationDirectory, bool downloadMissingMaps, Action<string> mapDoneAction, Action<string> log)
+            string destinationDirectory, bool downloadMissingMaps, bool copyToMomentumMod, Action<string> mapDoneAction, Action<string> log)
         {
             log("Starting...");
             var copyTasks = selectedMaps
-                .Select(x => Task.Run(() => RenameMap(x, sourceDirectory, destinationDirectory, downloadMissingMaps, log))).ToList();
+                .Select(x => Task.Run(() => RenameMap(x, sourceDirectory, destinationDirectory, downloadMissingMaps, copyToMomentumMod, log))).ToList();
 
             while (copyTasks.Any())
             {

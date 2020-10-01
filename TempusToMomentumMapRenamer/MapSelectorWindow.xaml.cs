@@ -18,15 +18,17 @@ namespace TempusToMomentumMapRenamer
         private bool _isCopying;
         private int _mapCopyCount;
         private bool _downloadMissingMaps;
+        private bool _copyToMomentumMod;
 
         private delegate void UpdateLogText(string log);
-        public MapSelectorWindow(string sourceMapPath, string destinationMapPath, bool downloadMissingMaps)
+        public MapSelectorWindow(string sourceMapPath, string destinationMapPath, bool downloadMissingMaps, bool copyToMomentumMod)
         {
             InitializeComponent();
 
             _sourceMapPath = sourceMapPath;
             _destinationMapPath = destinationMapPath;
             _downloadMissingMaps = downloadMissingMaps;
+            _copyToMomentumMod = copyToMomentumMod;
 
             DataContext = this;
         }
@@ -72,7 +74,7 @@ namespace TempusToMomentumMapRenamer
 
             var total = selectedData.Count;
 
-            await MapRenamerUtility.RenameMapsAsync(selectedData, _sourceMapPath, _destinationMapPath, _downloadMissingMaps, finishedMap =>
+            await MapRenamerUtility.RenameMapsAsync(selectedData, _sourceMapPath, _destinationMapPath, _downloadMissingMaps, _copyToMomentumMod, finishedMap =>
             {
                 _mapCopyCount++;
                 CopyStatusLabel.Text = $"Copied {_mapCopyCount} out of {total} | {finishedMap}";
